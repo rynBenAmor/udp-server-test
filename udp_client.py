@@ -28,8 +28,8 @@ def main():
     try:
         while True:
             try:
-                CHAT_TAG = Fore.GREEN + '[all]:' if ALL_CHAT else Fore.BLUE + '[server]:' # * a string indication like that of LOL
-                message = input(f"{CHAT_TAG} Write a message ")
+                CHAT_TAG = Fore.GREEN + '[all]' + Style.RESET_ALL if ALL_CHAT else Fore.BLUE + '[server]' + Style.RESET_ALL # * a string indication like that of LOL
+                message = input(f"{CHAT_TAG} Write a message: ")
                 if message.lower() == "/exit":
                     print(Fore.RED + "Exiting client..." + Style.RESET_ALL)
                     break
