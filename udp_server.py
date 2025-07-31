@@ -1,4 +1,6 @@
+# udp_server.py
 import socket
+from colorama import Fore, Style
 import datetime
 
 HOST = '0.0.0.0' # let server decide the ip
@@ -8,7 +10,7 @@ BUFFER_SIZE = 1024
 def server_socket_setup():
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind((HOST, PORT))
-    print(f"[STARTED] UDP server listening on {HOST}:{PORT}")
+    print(Fore.GREEN + f"[STARTED] UDP server listening on {HOST}:{PORT}", Style.RESET_ALL)
     return sock
 
 def main():
@@ -24,10 +26,13 @@ def main():
                     message = repr(data)
                 timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                 print(f"[{timestamp}] Received from {addr}: {message}")
+
+                sock.sendto(message.encode(), addr)# send it back
+
             except socket.timeout:
                 continue  # Allows KeyboardInterrupt to be caught
     except KeyboardInterrupt:
-        print("\n[INTERRUPTED] Server shutting down.")
+        print(Fore.RED + "\n[INTERRUPTED] Server shutting down.", Style.RESET_ALL)
     finally:
         sock.close()
 
